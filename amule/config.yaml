@@ -4,9 +4,11 @@ slug: amule
 description: aMule P2P client
 url: "https://github.com/GazKez/Gazlaxy-s-Addons/tree/main/amule"
 arch:
+  - aarch64
   - amd64
+  - armhf
   - armv7
-  - arm64
+  - i386
 init: false
 map:
   - share:rw
