@@ -1,18 +1,17 @@
 name: aMule
+version: "1.0.0"
 slug: amule
 description: aMule P2P client
-version: "1.0.0"
+url: "https://github.com/GazKez/Gazlaxy-s-Addons/tree/main/amule"
 arch:
   - amd64
   - armv7
   - arm64
-startup: services
-boot: auto
-ports:
-  4711/tcp: 4711
-  4712/tcp: 4712
-  4662/tcp: 4662
-  4665/udp: 4665
-  4672/udp: 4672
-options: {}
-schema: {}
+init: false
+map:
+  - share:rw
+options:
+  message: "Hello world..."
+schema:
+  message: "str?"
+image: "ghcr.io/home-assistant/{arch}-addon-example"
