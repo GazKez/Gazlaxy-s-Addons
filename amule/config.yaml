@@ -11,3 +11,18 @@ ports:
 map:
   - config:rw # Para que los datos no se borren al reiniciar
   - share:rw  # Para guardar las descargas en la carpeta share de HA
+options:
+  puid: 1000
+  pgid: 1000
+  tz: "Europe/Madrid"
+  webui_pwd: "admin"
+  mod_auto_restart_enabled: true
+schema:
+  puid: int
+  pgid: int
+  tz: str
+  gui_pwd: password?
+  webui_pwd: password
+  mod_auto_restart_enabled: bool
+  mod_auto_restart_cron: str?
+  mod_auto_share_directories: str?
