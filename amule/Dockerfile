@@ -1,9 +1,10 @@
-ARG BUILD_FROM=homeassistant/amd64-base:latest
 FROM ngosang/amule:latest
 
-# Instalar bashio para leer la configuración de HA
-RUN apt-get update && apt-get install -y curl jq \
-    && curl -J -L -o /tmp/bashio.tar.gz "https://github.com/hassio-addons/bashio/archive/v0.14.3.tar.gz" \
+# En Alpine usamos 'apk' en lugar de 'apt-get'
+RUN apk add --no-cache curl jq
+
+# Instalar bashio
+RUN curl -J -L -o /tmp/bashio.tar.gz "https://github.com/hassio-addons/bashio/archive/v0.14.3.tar.gz" \
     && mkdir /tmp/bashio \
     && tar zxvf /tmp/bashio.tar.gz --strip 1 -C /tmp/bashio \
     && mv /tmp/bashio/lib /usr/lib/bashio \
