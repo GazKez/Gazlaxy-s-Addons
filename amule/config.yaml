@@ -1,19 +1,15 @@
-name: aMule
+name: "aMule"
+description: "Cliente eMule para Home Assistant"
 version: "1.0.0"
-slug: amule
-description: aMule P2P client
-url: "https://github.com/GazKez/Gazlaxy-s-Addons/tree/main/amule"
+slug: "amule_addon"
 arch:
   - aarch64
   - amd64
-  - armhf
   - armv7
-  - i386
-init: false
+ports:
+  4711/tcp: 4711 # Interfaz Web
+  4662/tcp: 4662 # Puerto eMule
+  4672/udp: 4672 # Puerto eMule
 map:
-  - share:rw
-options:
-  message: "Hello world..."
-schema:
-  message: "str?"
-image: "ghcr.io/ngosang/amule:latest"
+  - config:rw # Para que los datos no se borren al reiniciar
+  - share:rw  # Para guardar las descargas en la carpeta share de HA
