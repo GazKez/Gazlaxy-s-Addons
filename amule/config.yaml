@@ -3,9 +3,7 @@ description: "Cliente eMule para Home Assistant"
 version: "1.0.0"
 slug: "amule_addon"
 arch:
-  - aarch64
   - amd64
-  - armv7
 ports:
   4711/tcp: 4711 # Interfaz Web
   4662/tcp: 4662 # Puerto eMule
