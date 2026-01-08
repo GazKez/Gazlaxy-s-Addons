@@ -1,5 +1,5 @@
 ARG BUILD_FROM=homeassistant/amd64-base:latest
-FROM ngosang/amuleamule:latest
+FROM ngosang/amule:latest
 
 # Instalar bashio para leer la configuración de HA
 RUN apt-get update && apt-get install -y curl jq \
