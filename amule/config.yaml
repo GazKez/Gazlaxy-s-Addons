@@ -28,8 +28,11 @@ schema:
   puid: int
   pgid: int
   tz: str
-  gui_pwd: password?
+  gui_pwd: password
   webui_pwd: password
   mod_auto_restart_enabled: bool
-  mod_auto_restart_cron: str?
-  mod_auto_share_directories: str?
+  mod_auto_restart_cron: str
+  mod_auto_share_enabled: bool
+  mod_auto_share_directories: str
+  mod_fix_kad_graph_enabled: bool
+  mod_fix_kad_bootstrap_enabled: bool
