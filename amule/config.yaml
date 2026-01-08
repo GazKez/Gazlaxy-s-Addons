@@ -4,13 +4,20 @@ version: "1.0.0"
 slug: "amule_addon"
 arch:
   - amd64
+ingress: true  # <--- Activa el soporte Ingress
+ingress_port: 4711 # <--- Indica qué puerto interno es la Web UI
+panel_icon: "mdi:download-network" # Icono para el menú lateral
+panel_title: "aMule"
 ports:
   4711/tcp: 4711 # Interfaz Web
-  4662/tcp: 4662 # Puerto eMule
-  4672/udp: 4672 # Puerto eMule
+  4712/tcp: 4712 # remote gui, webserver, cmd ...
+  4662/tcp: 4662 # ed2k tcp
+  4665/udp: 4665 # ed2k global search udp (tcp port +3)
+  4672/udp: 4672 # ed2k udp
 map:
   - config:rw # Para que los datos no se borren al reiniciar
   - share:rw  # Para guardar las descargas en la carpeta share de HA
+  - media:rw  # Para guardar las descargas en la carpeta share de HA
 options:
   puid: 1000
   pgid: 1000
