@@ -1,7 +1,7 @@
 FROM ngosang/amule:latest
 
-# En Alpine usamos 'apk' en lugar de 'apt-get'
-RUN apk add --no-cache curl jq
+# Instalamos bash (necesario para bashio) y las utilidades de red
+RUN apk add --no-cache bash curl jq
 
 # Instalar bashio
 RUN curl -J -L -o /tmp/bashio.tar.gz "https://github.com/hassio-addons/bashio/archive/v0.14.3.tar.gz" \
