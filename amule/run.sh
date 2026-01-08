@@ -12,5 +12,13 @@ if bashio::config.has_value 'gui_pwd'; then
     export GUI_PWD=$(bashio::config 'gui_pwd')
 fi
 
+# Asegurar permisos en la carpeta media para el PUID/PGID seleccionado
+echo "Configurando permisos en /media/amule..."
+mkdir -p /media/amule/incoming
+mkdir -p /media/amule/temp
+chown -R $PUID:$PGID /media/amule
+
+echo "Iniciando aMule con Ingress habilitado..."
+
 # Ejecutar el punto de entrada original de la imagen de ngosang
 exec /home/amule/entrypoint.sh
