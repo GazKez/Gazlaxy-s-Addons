@@ -1,9 +1,9 @@
-
 name: "Gazlaxy AceServe"
 version: "0.1.0"
 slug: "gazlaxy_aceserve"
-description: "AceStream Engine with HTTPAceProxy for Home Assistant"
+description: "AceStream Engine with HTTPAceProxy"
 url: "https://github.com/GazKez/Gazlaxy-s-Addons"
+
 arch:
   - amd64
 
@@ -18,9 +18,9 @@ ports:
   8888/tcp: 8888
 
 ports_description:
-  6878/tcp: "AceStream HTTP API"
+  6878/tcp: "AceStream HTTP"
   8621/tcp: "AceStream P2P"
-  62062/tcp: "AceStream legacy API"
+  62062/tcp: "AceStream API"
   8888/tcp: "HTTPAceProxy"
 
 options:
