@@ -17,11 +17,11 @@ This repository contains the following add-ons
 
 _aMule add-on fork from https://github.com/ngosang/docker-amule ._
 
-### [Aceserve add-on](./aceserve)
+### [Gazlaxy AceServe add-on](./aceserve)
 
 ![Supports amd64 Architecture][amd64-shield]
 
-_Aceserve add-on ._
+_Gazlaxy AceServe add-on ._
 
 <!--
 
