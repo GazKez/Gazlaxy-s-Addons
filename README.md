@@ -17,6 +17,12 @@ This repository contains the following add-ons
 
 _aMule add-on fork from https://github.com/ngosang/docker-amule ._
 
+### [Aceserve add-on](./aceserve)
+
+![Supports amd64 Architecture][amd64-shield]
+
+_Aceserve add-on ._
+
 <!--
 
 Notes to developers after forking or using the github template feature:
