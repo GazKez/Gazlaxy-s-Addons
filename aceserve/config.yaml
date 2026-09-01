@@ -1,5 +1,5 @@
 name: "Gazlaxy AceServe"
-version: "0.1.0"
+version: "0.1.1"
 slug: "gazlaxy_aceserve"
 
 description: "AceStream Engine with HTTPAceProxy for Home Assistant"
