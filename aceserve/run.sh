@@ -111,7 +111,19 @@ EOF
     fi
 
     dns_resolv_tmp="/tmp/gazlaxy-resolv.conf"
-    grep -v '^[[:space:]]*# ExtServers:' "${RESOLV_CONF}" > "${dns_resolv_tmp}" || true
+    : > "${dns_resolv_tmp}"
+
+    # AceStream's Python resolver reads the ExtServers hint, while libcurl and
+    # other native components use the nameserver directives. Configure both so
+    # every process inside the add-on follows the same DNS policy.
+    for dns_server in ${ext_servers}; do
+        printf 'nameserver %s\n' "${dns_server}" >> "${dns_resolv_tmp}"
+    done
+
+    grep -v \
+        -e '^[[:space:]]*nameserver[[:space:]]' \
+        -e '^[[:space:]]*# ExtServers:' \
+        "${RESOLV_CONF}" >> "${dns_resolv_tmp}" || true
     printf '\n# ExtServers: [%s]\n' "${ext_servers}" >> "${dns_resolv_tmp}"
 
     if ! cat "${dns_resolv_tmp}" > "${RESOLV_CONF}"; then
@@ -119,14 +131,14 @@ EOF
     fi
     rm -f "${dns_resolv_tmp}"
 
-    log "AceStream DNS servers: ${ext_servers}"
+    log "System and AceStream DNS servers: ${ext_servers}"
 }
 
 trap cleanup EXIT
 trap handle_signal INT TERM HUP
 
 log "=========================================="
-log "Gazlaxy AceServe 0.1.2"
+log "Gazlaxy AceServe 0.1.3"
 log "AceServe + HTTPAceProxy"
 log "Architecture: $(uname -m)"
 log "=========================================="
