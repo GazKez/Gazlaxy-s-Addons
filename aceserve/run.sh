@@ -3,6 +3,7 @@
 set -eu
 
 OPTIONS_FILE="/data/options.json"
+RESOLV_CONF="/etc/resolv.conf"
 ACESTREAM_PID=""
 PROXY_PID=""
 
@@ -62,11 +63,70 @@ read_integer_option() {
     printf '%s' "${value}"
 }
 
+is_ipv4_address() {
+    printf '%s\n' "$1" | awk -F. '
+        BEGIN { valid = 1 }
+        NF != 4 { valid = 0 }
+        {
+            for (i = 1; i <= NF; i++) {
+                if ($i !~ /^[0-9]+$/ || $i < 0 || $i > 255) {
+                    valid = 0
+                }
+            }
+        }
+        END { exit(valid ? 0 : 1) }
+    '
+}
+
+configure_dns() {
+    dns_servers_json="$(
+        jq -ce '
+            (.dns_servers // ["1.1.1.1", "1.0.0.1"])
+            | select(
+                type == "array"
+                and length >= 1
+                and length <= 3
+                and all(.[]; type == "string")
+            )
+        ' "${OPTIONS_FILE}"
+    )" || fatal "Option 'dns_servers' must contain between one and three addresses."
+
+    ext_servers=""
+    while IFS= read -r dns_server; do
+        if ! is_ipv4_address "${dns_server}"; then
+            fatal "DNS server '${dns_server}' is not a valid IPv4 address."
+        fi
+
+        if [ -n "${ext_servers}" ]; then
+            ext_servers="${ext_servers} ${dns_server}"
+        else
+            ext_servers="${dns_server}"
+        fi
+    done <<EOF
+$(printf '%s' "${dns_servers_json}" | jq -r '.[]')
+EOF
+
+    if [ ! -r "${RESOLV_CONF}" ]; then
+        fatal "DNS configuration file is not readable: ${RESOLV_CONF}"
+    fi
+
+    dns_resolv_tmp="/tmp/gazlaxy-resolv.conf"
+    grep -v '^[[:space:]]*# ExtServers:' "${RESOLV_CONF}" > "${dns_resolv_tmp}" || true
+    printf '\n# ExtServers: [%s]\n' "${ext_servers}" >> "${dns_resolv_tmp}"
+
+    if ! cat "${dns_resolv_tmp}" > "${RESOLV_CONF}"; then
+        fatal "Could not configure the AceStream DNS servers in ${RESOLV_CONF}."
+    fi
+    rm -f "${dns_resolv_tmp}"
+
+    log "AceStream DNS servers: ${ext_servers}"
+}
+
 trap cleanup EXIT
 trap handle_signal INT TERM HUP
 
 log "=========================================="
-log "Gazlaxy AceServe 0.1.1"
+log "Gazlaxy AceServe 0.1.2"
 log "AceServe + HTTPAceProxy"
 log "Architecture: $(uname -m)"
 log "=========================================="
@@ -81,6 +141,7 @@ fi
 
 MAX_CONNECTIONS="$(read_integer_option max_connections 10 1 100)"
 MAX_CONCURRENT_CHANNELS="$(read_integer_option max_concurrent_channels 5 1 50)"
+configure_dns
 
 export ACEPROXY_HOST="${ACEPROXY_HOST:-0.0.0.0}"
 export ACEPROXY_PORT="${ACEPROXY_PORT:-8888}"

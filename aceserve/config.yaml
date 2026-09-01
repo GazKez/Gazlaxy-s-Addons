@@ -1,5 +1,5 @@
 name: "Gazlaxy AceServe"
-version: "0.1.1"
+version: "0.1.2"
 slug: "gazlaxy_aceserve"
 
 description: "AceStream Engine with HTTPAceProxy for Home Assistant"
@@ -28,10 +28,15 @@ ports_description:
 options:
   max_connections: 10
   max_concurrent_channels: 5
+  dns_servers:
+    - "1.1.1.1"
+    - "1.0.0.1"
 
 schema:
   max_connections: int(1,100)
   max_concurrent_channels: int(1,50)
+  dns_servers:
+    - str
 
 map:
   - addon_config:rw
