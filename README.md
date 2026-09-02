@@ -1,46 +1,57 @@
-# Gazlaxy's Home Assistant add-ons repository
+# Gazlaxy's Home Assistant Add-ons
 
-This repository can be used as a "blueprint" for add-on development to help you get started.
+Repositorio de add-ons mantenidos por GazKez para instalaciones de Home
+Assistant OS y Home Assistant Supervised.
 
-Add-on documentation: <https://developers.home-assistant.io/docs/add-ons>
+[![Añadir repositorio a Home Assistant](https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg)](https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2FGazKez%2FGazlaxy-s-Addons)
 
-[![Open your Home Assistant instance and show the add add-on repository dialog with a specific repository URL pre-filled.](https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg)](https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2Fhome-assistant%2Faddons-example)
+## Instalación
 
-## Add-ons
+1. Abre **Ajustes > Complementos > Tienda de complementos**.
+2. En el menú superior derecho, selecciona **Repositorios**.
+3. Añade `https://github.com/GazKez/Gazlaxy-s-Addons`.
+4. Selecciona el add-on que quieras instalar y revisa su documentación.
 
-This repository contains the following add-ons
+También puedes utilizar el botón anterior para abrir directamente el diálogo
+de Home Assistant.
 
-### [aMule add-on](./amule)
+## Add-ons disponibles
 
-![Supports aarch64 Architecture][aarch64-shield]
-![Supports amd64 Architecture][amd64-shield]
+### [aMule](./amule)
 
-_aMule add-on fork from https://github.com/ngosang/docker-amule ._
+Cliente eD2k/Kad basado en aMule 3.0, con interfaz web integrada mediante
+Home Assistant Ingress, persistencia y directorios de descarga configurables.
 
-### [Gazlaxy AceServe add-on](./aceserve)
+![Arquitectura amd64 compatible][amd64-shield]
 
-![Supports amd64 Architecture][amd64-shield]
+- [Documentación](./amule/DOCS.md)
+- [Registro de cambios](./amule/CHANGELOG.md)
+- Base: [`ngosang/docker-amule`](https://github.com/ngosang/docker-amule)
 
-_Gazlaxy AceServe add-on ._
+### [Gazlaxy AceServe](./aceserve)
 
-<!--
+AceStream Engine con HTTPAceProxy e interfaz de estadísticas integrada mediante
+Home Assistant Ingress.
 
-Notes to developers after forking or using the github template feature:
-- While developing comment out the 'image' key from 'example/config.yaml' to make the supervisor build the addon
-  - Remember to put this back when pushing up your changes.
-- When you merge to the 'main' branch of your repository a new build will be triggered.
-  - Make sure you adjust the 'version' key in 'example/config.yaml' when you do that.
-  - Make sure you update 'example/CHANGELOG.md' when you do that.
-  - The first time this runs you might need to adjust the image configuration on github container registry to make it public
-  - You may also need to adjust the github Actions configuration (Settings > Actions > General > Workflow > Read & Write)
-- Adjust the 'image' key in 'example/config.yaml' so it points to your username instead of 'home-assistant'.
-  - This is where the build images will be published to.
-- Rename the example directory.
-  - The 'slug' key in 'example/config.yaml' should match the directory name.
-- Adjust all keys/url's that points to 'home-assistant' to now point to your user/fork.
-- Share your repository on the forums https://community.home-assistant.io/c/projects/9
-- Do awesome stuff!
- -->
+![Arquitectura amd64 compatible][amd64-shield]
 
-[aarch64-shield]: https://img.shields.io/badge/aarch64-yes-green.svg
-[amd64-shield]: https://img.shields.io/badge/amd64-yes-green.svg
+## Compatibilidad
+
+Los add-ons publicados actualmente son compatibles con sistemas `amd64`.
+Necesitan una instalación de Home Assistant que disponga de Supervisor y tienda
+de add-ons.
+
+## Incidencias y contribuciones
+
+Utiliza [GitHub Issues](https://github.com/GazKez/Gazlaxy-s-Addons/issues) para
+informar de errores o proponer mejoras. Incluye la versión del add-on, la versión
+de Home Assistant y los registros relevantes, eliminando antes contraseñas y
+otros datos privados.
+
+## Licencia
+
+El contenido propio de este repositorio se distribuye bajo la licencia incluida
+en [LICENSE](./LICENSE). Cada aplicación empaquetada conserva su licencia y sus
+condiciones originales.
+
+[amd64-shield]: https://img.shields.io/badge/amd64-compatible-green.svg
