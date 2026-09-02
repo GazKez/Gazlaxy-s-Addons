@@ -1,5 +1,5 @@
 name: "Gazlaxy AceServe"
-version: "0.1.3"
+version: "0.1.4"
 slug: "gazlaxy_aceserve"
 
 description: "AceStream Engine with HTTPAceProxy for Home Assistant"
@@ -12,6 +12,17 @@ arch:
 startup: services
 boot: auto
 init: false
+
+# Home Assistant Ingress exposes the statistics dashboard inside the
+# authenticated Home Assistant frontend. Port 8099 is internal-only and is
+# served by the restricted nginx proxy configured in ingress.conf.
+ingress: true
+ingress_port: 8099
+ingress_entry: /stat
+ingress_stream: true
+panel_title: "AceServe"
+panel_icon: "mdi:play-network"
+panel_admin: true
 
 ports:
   6878/tcp: 6878

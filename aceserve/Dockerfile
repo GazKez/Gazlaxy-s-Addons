@@ -22,6 +22,15 @@ RUN git init . && \
     git fetch --depth 1 origin "${HTTPACEPROXY_REF}" && \
     git checkout --detach FETCH_HEAD
 
+# HTTPAceProxy's dashboards use root-relative links. Home Assistant Ingress
+# mounts applications below a session-specific path, so make internal links
+# relative while preserving normal direct access on port 8888.
+COPY ingress-paths.sed /tmp/ingress-paths.sed
+RUN sed -i -f /tmp/ingress-paths.sed \
+        /src/HTTPAceProxy/httpaceproxycpp/http/index.html \
+        /src/HTTPAceProxy/httpaceproxycpp/http/statplugin/index.html && \
+    rm -f /tmp/ingress-paths.sed
+
 RUN cmake \
         -S /src/HTTPAceProxy/httpaceproxycpp \
         -B /build \
@@ -42,12 +51,16 @@ RUN apk add --no-cache \
         jq \
         libcurl \
         libstdc++ \
-        zlib
+        nginx \
+        zlib && \
+    rm -f /etc/nginx/http.d/default.conf && \
+    mkdir -p /run/nginx
 
 WORKDIR /app
 
 COPY --from=httpaceproxy-build /build/httpaceproxycpp /app/httpaceproxycpp
 COPY --from=httpaceproxy-build /src/HTTPAceProxy/httpaceproxycpp/http /app/http
+COPY ingress.conf /etc/nginx/http.d/aceserve-ingress.conf
 
 ENV ACEPROXY_HOST=0.0.0.0 \
     ACEPROXY_PORT=8888 \
@@ -59,7 +72,7 @@ ENV ACEPROXY_HOST=0.0.0.0 \
     ENABLED_PLUGINS=newera,elcano,acepl,af1c1onados,aio,stat,statplugin \
     AIO_PLUGINS=newera,elcano,acepl,af1c1onados
 
-EXPOSE 6878 8621 62062 8888
+EXPOSE 6878 8621 62062 8888 8099
 
 COPY run.sh /run.sh
 RUN chmod 0755 /run.sh

@@ -6,6 +6,7 @@ OPTIONS_FILE="/data/options.json"
 RESOLV_CONF="/etc/resolv.conf"
 ACESTREAM_PID=""
 PROXY_PID=""
+INGRESS_PID=""
 
 log() {
     printf '%s [gazlaxy-aceserve] %s\n' "$(date '+%Y-%m-%d %H:%M:%S')" "$*"
@@ -29,6 +30,7 @@ stop_process() {
 
 cleanup() {
     trap - EXIT INT TERM HUP
+    stop_process "${INGRESS_PID}" "Home Assistant Ingress proxy"
     stop_process "${PROXY_PID}" "HTTPAceProxy"
     stop_process "${ACESTREAM_PID}" "AceStream Engine"
 }
@@ -138,7 +140,7 @@ trap cleanup EXIT
 trap handle_signal INT TERM HUP
 
 log "=========================================="
-log "Gazlaxy AceServe 0.1.3"
+log "Gazlaxy AceServe 0.1.4"
 log "AceServe + HTTPAceProxy"
 log "Architecture: $(uname -m)"
 log "=========================================="
@@ -213,15 +215,22 @@ cd /app
 PROXY_PID="$!"
 log "HTTPAceProxy PID: ${PROXY_PID}"
 
+log "Starting Home Assistant Ingress proxy on internal port 8099..."
+nginx -g 'daemon off;' &
+INGRESS_PID="$!"
+log "Home Assistant Ingress proxy PID: ${INGRESS_PID}"
+
 # BusyBox ash (provided by the Alpine runtime) supports wait -n. Whichever
 # service exits first makes the add-on fail, and the EXIT trap stops the other.
 process_status=0
-wait -n "${ACESTREAM_PID}" "${PROXY_PID}" || process_status="$?"
+wait -n "${ACESTREAM_PID}" "${PROXY_PID}" "${INGRESS_PID}" || process_status="$?"
 
 if ! kill -0 "${ACESTREAM_PID}" 2>/dev/null; then
     log "ERROR: AceStream Engine stopped unexpectedly (status ${process_status})." >&2
 elif ! kill -0 "${PROXY_PID}" 2>/dev/null; then
     log "ERROR: HTTPAceProxy stopped unexpectedly (status ${process_status})." >&2
+elif ! kill -0 "${INGRESS_PID}" 2>/dev/null; then
+    log "ERROR: Home Assistant Ingress proxy stopped unexpectedly (status ${process_status})." >&2
 else
     log "ERROR: A managed process stopped unexpectedly (status ${process_status})." >&2
 fi
