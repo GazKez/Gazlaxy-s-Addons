@@ -1,5 +1,8 @@
-ARG BUILD_FROM=ngosang/amule:3.0.1-2
-FROM ${BUILD_FROM}
+# Do not use Home Assistant Builder's reserved BUILD_FROM argument here: the
+# builder injects its own Alpine base image. This add-on intentionally extends
+# the Debian-based upstream aMule image.
+ARG AMULE_FROM=ngosang/amule:3.0.1-2
+FROM ${AMULE_FROM}
 
 ARG BUILD_ARCH
 ARG BUILD_VERSION
