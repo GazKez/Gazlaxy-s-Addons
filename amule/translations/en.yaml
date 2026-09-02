@@ -1,0 +1,47 @@
+configuration:
+  puid:
+    name: Process UID
+    description: User identifier used to run aMule.
+  pgid:
+    name: Process GID
+    description: Group identifier used to run aMule.
+  umask:
+    name: Permission mask
+    description: Octal mask applied to newly created files and directories.
+  tz:
+    name: Time zone
+    description: IANA time zone, for example Europe/Madrid.
+  gui_pwd:
+    name: EC password
+    description: Password used by amuleweb, amulegui and amulecmd.
+  webui_pwd:
+    name: Web password
+    description: Password used to sign in to the web interface.
+  incoming_dir:
+    name: Completed downloads directory
+    description: Destination path under /media or /share.
+  temp_dir:
+    name: Temporary downloads directory
+    description: Path for incomplete files under /media or /share.
+  fix_permissions:
+    name: Fix permissions
+    description: Adjust directory ownership during startup.
+  mod_auto_restart_enabled:
+    name: Automatic restart
+    description: Enable scheduled aMule process restarts.
+  mod_auto_restart_cron:
+    name: Restart schedule
+    description: Cron expression used for automatic restarts.
+  mod_auto_share_enabled:
+    name: Automatic sharing
+    description: Automatically update the configured shared directories.
+  mod_auto_share_directories:
+    name: Shared directories
+    description: Semicolon-separated list of paths to share.
+
+network:
+  4711/tcp: Web interface; Ingress does not require this port to be published.
+  4712/tcp: External connections for amulegui and amulecmd.
+  4662/tcp: eD2k client-to-client traffic.
+  4665/udp: eD2k global searches.
+  4672/udp: Extended eMule protocol and Kad network.

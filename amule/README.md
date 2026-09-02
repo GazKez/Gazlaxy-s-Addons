@@ -1,9 +1,20 @@
-# Home Assistant Add-on: aMule add-on
+# Home Assistant Add-on: aMule
 
-_aMule add-on fork from https://github.com/ngosang/docker-amule _
+Ejecuta aMule 3.0 en segundo plano y administra las descargas desde la
+interfaz web integrada en Home Assistant mediante Ingress.
 
-![Supports aarch64 Architecture][aarch64-shield]
-![Supports amd64 Architecture][amd64-shield]
+## Funciones principales
 
-[aarch64-shield]: https://img.shields.io/badge/aarch64-yes-green.svg
-[amd64-shield]: https://img.shields.io/badge/amd64-yes-green.svg
+- Cliente eD2k y Kad basado en aMule 3.0.1.
+- Interfaz web dentro del panel lateral de Home Assistant.
+- Configuración persistente incluida en las copias de seguridad del add-on.
+- Directorios de descargas completadas y temporales configurables.
+- Soporte para rutas bajo `/media` y `/share`.
+- Puertos eD2k/Kad configurables desde la pestaña **Red**.
+- Reinicio programado y compartición automática opcionales.
+
+Consulta [DOCS.md](./DOCS.md) para las instrucciones completas de instalación,
+configuración y solución de problemas.
+
+> aMule permite intercambiar archivos mediante redes P2P. Utilízalo únicamente
+> para descargar y compartir contenido que tengas derecho a distribuir.
