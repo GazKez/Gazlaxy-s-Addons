@@ -20,7 +20,9 @@ de Home Assistant.
 ### [aMule](./amule)
 
 Cliente eD2k/Kad basado en aMule 3.0, con interfaz web integrada mediante
-Home Assistant Ingress, persistencia y directorios de descarga configurables.
+Home Assistant Ingress, diseño responsive para móvil, persistencia y
+directorios de descarga configurables. La interfaz clásica y el acceso LAN
+directo siguen disponibles de forma opcional.
 
 ![Arquitectura amd64 compatible][amd64-shield]
 

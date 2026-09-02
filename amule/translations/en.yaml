@@ -17,6 +17,9 @@ configuration:
   webui_pwd:
     name: Web password
     description: Password used to sign in to the web interface.
+  webui_theme:
+    name: Web interface design
+    description: Use the mobile-friendly responsive design or the classic interface bundled with aMule.
   incoming_dir:
     name: Completed downloads directory
     description: Destination path under /media or /share.

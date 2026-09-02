@@ -17,6 +17,9 @@ configuration:
   webui_pwd:
     name: Contraseña web
     description: Contraseña para iniciar sesión en la interfaz web.
+  webui_theme:
+    name: Diseño de la interfaz web
+    description: Usa el diseño responsive para móvil o la interfaz clásica incluida en aMule.
   incoming_dir:
     name: Directorio de descargas completadas
     description: Ruta de destino bajo /media o /share.

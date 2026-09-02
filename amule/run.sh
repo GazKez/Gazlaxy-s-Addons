@@ -18,6 +18,10 @@ read_option() {
     jq --exit-status --raw-output ".${1}" "${OPTIONS_FILE}"
 }
 
+read_option_default() {
+    jq --raw-output --arg default "$2" ".${1} // \$default" "${OPTIONS_FILE}"
+}
+
 validate_data_path() {
     path="$1"
     option="$2"
@@ -44,6 +48,7 @@ export UMASK="$(read_option umask)"
 export TZ="$(read_option tz)"
 export GUI_PWD="$(read_option gui_pwd)"
 export WEBUI_PWD="$(read_option webui_pwd)"
+export WEBUI_THEME="$(read_option_default webui_theme responsive)"
 export INCOMING_DIR="$(read_option incoming_dir)"
 export TEMP_DIR="$(read_option temp_dir)"
 export FIX_PERMISSIONS="$(read_option fix_permissions)"
