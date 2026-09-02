@@ -1,5 +1,5 @@
 name: "Gazlaxy AceServe"
-version: "0.1.4"
+version: "0.1.5"
 slug: "gazlaxy_aceserve"
 
 description: "AceStream Engine with HTTPAceProxy for Home Assistant"
@@ -18,7 +18,7 @@ init: false
 # served by the restricted nginx proxy configured in ingress.conf.
 ingress: true
 ingress_port: 8099
-ingress_entry: /stat
+ingress_entry: stat
 ingress_stream: true
 panel_title: "AceServe"
 panel_icon: "mdi:play-network"

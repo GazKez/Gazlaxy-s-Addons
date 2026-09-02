@@ -140,7 +140,7 @@ trap cleanup EXIT
 trap handle_signal INT TERM HUP
 
 log "=========================================="
-log "Gazlaxy AceServe 0.1.4"
+log "Gazlaxy AceServe 0.1.5"
 log "AceServe + HTTPAceProxy"
 log "Architecture: $(uname -m)"
 log "=========================================="
