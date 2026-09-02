@@ -1,0 +1,6 @@
+*.sh text eol=lf
+Dockerfile text eol=lf
+
+# Preserve the third-party source as published; its mixed indentation is not
+# an error in changes to this repository.
+amule/webui/amuleweb-adaptable/** -whitespace

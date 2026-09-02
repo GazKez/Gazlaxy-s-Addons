@@ -6,12 +6,14 @@ interfaz web integrada en Home Assistant mediante Ingress.
 ## Funciones principales
 
 - Cliente eD2k y Kad basado en aMule 3.0.1.
-- Interfaz web dentro del panel lateral de Home Assistant.
+- Interfaz web responsive dentro del panel lateral de Home Assistant, con el
+  diseño clásico disponible como alternativa.
 - Configuración persistente incluida en las copias de seguridad del add-on.
 - Directorios de descargas completadas y temporales configurables.
 - Soporte para rutas bajo `/media` y `/share`.
 - Puertos eD2k/Kad configurables desde la pestaña **Red**.
 - Reinicio programado y compartición automática opcionales.
+- Puertos web y EC opcionales para acceso directo desde la red local.
 
 Consulta [DOCS.md](./DOCS.md) para las instrucciones completas de instalación,
 configuración y solución de problemas.
